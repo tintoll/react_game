@@ -40,11 +40,23 @@
             parseInt(this.state.value) ===
             this.state.first * this.state.second
           ) {
-            this.setState({
-              result: this.state.value + " 정답",
-              first: Math.ceil(Math.random() * 9),
-              second: Math.ceil(Math.random() * 9),
-              value: ""
+            // this.setState({
+            //   result: "정답 : " + this.state.value,
+            //   first: Math.ceil(Math.random() * 9),
+            //   second: Math.ceil(Math.random() * 9),
+            //   value: ""
+            // });
+
+            // this.setState는 바뀔 값이기때문에 현재의 상태와 헷갈릴수 있어서
+            // 아래와 같이 많이 사용한다.
+            // setState는 비동기로 동작한다.
+            this.setState(prevState => {
+              return {
+                result: "정답 : " + prevState.value,
+                first: Math.ceil(Math.random() * 9),
+                second: Math.ceil(Math.random() * 9),
+                value: ""
+              };
             });
           } else {
             this.setState({
@@ -54,6 +66,9 @@
           }
         };
         onChange = e => this.setState({ value: e.target.value });
+
+        // input박스에 포커스를 주기위해서 ref를 사용할수 있다.
+        input;
         render() {
           return (
             <React.Fragment>
@@ -62,6 +77,9 @@
               </div>
               <form onSubmit={this.onSubmit}>
                 <input
+                  ref={c => {
+                    this.input = c;
+                  }}
                   type="number"
                   value={this.state.value}
                   onChange={this.onChange}
