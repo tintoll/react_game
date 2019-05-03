@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Lecture 01</title>
+
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const GuGudan = () => {
+        // state 정의
+        // 첫번째는 state명, 두번째는 state값을 바꿀때사용하는 함수. setState같은거임.
+        const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+        const [second, setSecond] = React.useState(
+          Math.ceil(Math.random() * 9)
+        );
+        const [value, setValue] = React.useState("");
+        const [result, setResult] = React.useState("");
+        // ref 설정
+        const inputRef = React.useRef(null);
+
+        const onSubmit = e => {
+          e.preventDefault();
+          if (parseInt(value) === first * second) {
+            setFirst(Math.ceil(Math.random() * 9));
+            setSecond(Math.ceil(Math.random() * 9));
+            setValue("");
+            setResult("정답 : " + value);
+            // setResult(() => "정답 : " + value);
+
+            // ref변수다음에 current를 붙인 다음 focus를 해주면 된다.
+            inputRef.current.focus();
+          } else {
+            setValue("");
+            setResult("땡 : " + value);
+            inputRef.current.focus();
+          }
+        };
+
+        const onChange = e => setValue(e.target.value);
+
+        // class 일때는 state가 변경될때마다  render()함수가 호출되었는데
+        // hooks방식일때는 GuGudan 함수 전체가 호출된다.
+        // 그래서 속도가 조금 느릴수있다. 하지만 life Cycle 부분을 다 사용하면 어느정도 비슷해진다.
+        console.log("렌더링");
+
+        return (
+          <React.Fragment>
+            <div>
+              {first} 곱하기 {second}는?
+            </div>
+            <form onSubmit={onSubmit}>
+              <input
+                ref={inputRef}
+                type="number"
+                value={value}
+                onChange={onChange}
+              />
+              <button>입력!</button>
+            </form>
+            <div>{result}</div>
+          </React.Fragment>
+        );
+      };
+    </script>
+    <script type="text/babel">
+      ReactDOM.render(<GuGudan />, document.querySelector("#root"));
+    </script>
+  </body>
+</html>

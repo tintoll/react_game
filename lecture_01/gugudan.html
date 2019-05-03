@@ -58,17 +58,22 @@
                 value: ""
               };
             });
+            this.input.focus();
           } else {
             this.setState({
               result: this.state.value + " 땡",
               value: ""
             });
+            this.input.focus();
           }
         };
         onChange = e => this.setState({ value: e.target.value });
 
         // input박스에 포커스를 주기위해서 ref를 사용할수 있다.
         input;
+        inputRef = c => (this.input = c);
+
+        // render()함수는 setState할때마다 호출되기 때문에 render안에 이벤트 함수 정의하지 말고 밖으로 빼자
         render() {
           return (
             <React.Fragment>
@@ -77,9 +82,7 @@
               </div>
               <form onSubmit={this.onSubmit}>
                 <input
-                  ref={c => {
-                    this.input = c;
-                  }}
+                  ref={this.inputRef}
                   type="number"
                   value={this.state.value}
                   onChange={this.onChange}
