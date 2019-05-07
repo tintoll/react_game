@@ -12,7 +12,7 @@ $ npm i -D webpack webpack-cli
 // jsx문법을 해석하지 못하기때문에 바베일 설치하여 webpack에 설정한다.
 npm i -D @babel/core @babel/preset-env @babel/preset-react babel-loader
 
-// state :{}를 해석하지 못해서 추가
+// state = {}를 해석하지 못해서 추가
 npm i -D @babel/plugin-proposal-class-properties
 ```
 
