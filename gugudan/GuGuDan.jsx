@@ -1,4 +1,4 @@
-import React from "react";
+const React = require("react");
 
 class GuGuDan extends React.Component {
   state = {
@@ -48,7 +48,7 @@ class GuGuDan extends React.Component {
           />
           <button>입력!</button>
         </form>
-        <div>{this.state.result}</div>S
+        <div>{this.state.result}</div>
       </>
     );
   }

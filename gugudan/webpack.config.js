@@ -1,15 +1,15 @@
 const path = require("path");
 
 module.exports = {
-  name: "gugudan setting",
-  mode: "development",
+  name: "gugudan webpack setting",
+  mode: "development", // production
   devtool: "eval",
   resolve: {
-    extensions: [".jsx", "js"]
+    extensions: [".jsx", ".js"]
   },
 
   entry: {
-    app: "./client"
+    app: "./client.jsx"
   },
 
   module: {
@@ -39,7 +39,6 @@ module.exports = {
       }
     ]
   },
-
   output: {
     path: path.join(__dirname, "dist"),
     filename: "app.js",
