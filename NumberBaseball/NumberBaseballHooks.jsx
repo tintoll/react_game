@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // ES6
+import React, { useState, memo } from "react"; // ES6
 import Try from "./Try";
 
 function getNumbers() {
@@ -11,7 +11,7 @@ function getNumbers() {
   return array;
 }
 
-const NumberBaseballHooks = () => {
+const NumberBaseballHooks = memo(() => {
   const [result, setResult] = useState("");
   const [value, setValue] = useState("");
   const [answers, setAnswers] = useState(getNumbers());
@@ -84,6 +84,6 @@ const NumberBaseballHooks = () => {
       </ul>
     </>
   );
-};
+});
 
 export default NumberBaseballHooks; // ES6

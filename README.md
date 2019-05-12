@@ -40,3 +40,69 @@ ReactDom.render(<Hot />, document.querySelector("#root"));
 },
 
 ```
+
+## 성능향상
+
+- 크롬의 리액트 도구에서 설정에서 보면 HightLight updates를 체크하면 렌더링 되는 부분이 화면에 보인다.
+- 이 부분을 보면서 렌더링 할필요가 없는데 렌더링 하는 부분이 있으면 성능 최적화 작업을 해줘야한다.
+
+```javascript
+// 오버라이드를 안해주면 무조건 true를 리턴한다.
+// shouldComponentUpdate에서 렌더링이 필요할때만 하도록 조건을 줄수 있다.
+shouldComponentUpdate(nextProps, nextState, nextContext) {
+  if(this.state.counter !== nextState.counter) {
+    return true;
+  }
+  return false;
+}
+```
+
+위와 같이 매번 shouldComponentUpdate를 하는 부분이 힘들편 편하게 하는 2가지 방법이 있다
+
+- PureComponent 사용방법 (클래스 방식에서 사용) : 부모-자식에 다 적용해줘야한다.
+
+  ```javascript
+  import React, { PureComponent } from "react";
+  class NumberBaseball extends PureComponent {
+   ...  
+  }
+  ```
+
+- memo 함수 사용방법  (Hooks방식에서 사용) : 부모-자식에 다 적용해줘야한다.
+  
+  ```javascript
+  import React, { memo } from "react";
+  
+  const Try = memo(({ tryInfo }) => {
+    return (
+      <li>
+        <div>{tryInfo.try}</div>
+        <div>{tryInfo.result}</div>
+      </li>
+    );
+  });
+  
+  export default Try;
+  ```
+
+
+
+##### Class 방식에서 ref를 Hooks랑 비슷하게 사용하는 방식 
+
+```javascript
+import React, { createRef } from "react";
+class NumberBaseball extends PureComponent {
+  inputRef = createRef();
+	this.inputRef.current.focus();
+}
+```
+
+
+
+##### props의값은 자식컴포넌트가 변경하면 안된다. 무조건 부모 컴포넌트가 변경해야한다.
+
+- 자식컴포넌트에서 props의 값을 변경하고 싶으면 자식컴포넌트의 state로 만들어서 사용해야 한다.
+
+##### Context API란 
+
+- A -> B -> C -> D 구조에서 A에서 D로 데이터를 줄려면 필요없는 B,C를 거처야하는데 이걸 거치치 않고 A -> D로 주는 방법이다. Redux도 같은 구조이다.

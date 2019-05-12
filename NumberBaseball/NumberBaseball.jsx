@@ -1,6 +1,6 @@
 // const React = require("react");
 import React from "react"; // ES6
-import { Component } from "react";
+import { PureComponent } from "react";
 import Try from "./Try";
 
 // 숫자 4개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -17,7 +17,7 @@ function getNumbers() {
   return array;
 }
 
-class NumberBaseball extends Component {
+class NumberBaseball extends PureComponent {
   state = {
     result: "",
     value: "",
