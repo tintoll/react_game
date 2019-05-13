@@ -64,15 +64,15 @@ shouldComponentUpdate(nextProps, nextState, nextContext) {
   ```javascript
   import React, { PureComponent } from "react";
   class NumberBaseball extends PureComponent {
-   ...  
+   ...
   }
   ```
 
-- memo 함수 사용방법  (Hooks방식에서 사용) : 부모-자식에 다 적용해줘야한다.
-  
+- memo 함수 사용방법 (Hooks방식에서 사용) : 부모-자식에 다 적용해줘야한다.
+
   ```javascript
   import React, { memo } from "react";
-  
+
   const Try = memo(({ tryInfo }) => {
     return (
       <li>
@@ -81,13 +81,11 @@ shouldComponentUpdate(nextProps, nextState, nextContext) {
       </li>
     );
   });
-  
+
   export default Try;
   ```
 
-
-
-##### Class 방식에서 ref를 Hooks랑 비슷하게 사용하는 방식 
+##### Class 방식에서 ref를 Hooks랑 비슷하게 사용하는 방식
 
 ```javascript
 import React, { createRef } from "react";
@@ -97,12 +95,38 @@ class NumberBaseball extends PureComponent {
 }
 ```
 
-
-
 ##### props의값은 자식컴포넌트가 변경하면 안된다. 무조건 부모 컴포넌트가 변경해야한다.
 
 - 자식컴포넌트에서 props의 값을 변경하고 싶으면 자식컴포넌트의 state로 만들어서 사용해야 한다.
 
-##### Context API란 
+##### Context API란
 
 - A -> B -> C -> D 구조에서 A에서 D로 데이터를 줄려면 필요없는 B,C를 거처야하는데 이걸 거치치 않고 A -> D로 주는 방법이다. Redux도 같은 구조이다.
+
+##### Hooks에서 클래스 변수 사용법
+
+```javascript
+// 클래스 방식
+class Test extends React.Component {
+  ...
+
+  timeout;
+
+  onChange = () => {
+    this.timeout = setTimeout(test, 100);
+  }
+  ...
+}
+
+// Hooks 방식
+// this의 속성을 Hooks에서는 ref로 표현한다.
+const Test = () =>{
+  ...
+  const timeout = useRef();
+  onChange = () => {
+    // 가져올때 timeout.current로 가져와야한다.
+    timeout.current = setTimeout(test, 100);
+  }
+  ...
+}
+```
