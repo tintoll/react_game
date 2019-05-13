@@ -130,3 +130,58 @@ const Test = () =>{
   ...
 }
 ```
+
+
+
+#### Object.entries()
+
+`Object.entries()`는 `object`에 직접있는 enumerable 속성 `[key, value]` 쌍에 해당하는 배열을 반환합니다. 속성의 순서는 개체의 속성 값을 수동으로 반복하여 주어진 순서와 동일합니다.
+
+```javascript
+const obj = { foo: 'bar', baz: 42 };
+console.log(Object.entries(obj)); // [ ['foo', 'bar'], ['baz', 42] ]
+console.log(Object.entries(obj)[1]); // Array ["baz", 42]
+```
+
+
+
+#### Array.**includes()**
+
+- includes() 메서드는 배열이 특정 요소를 포함하고 있는지 여부를 확인하고, 알맞게 `true` 또는 `false`를 반환합니다
+
+```javascript
+var array1 = [1, 2, 3];
+console.log(array1.includes(2));
+// expected output: true
+
+var pets = ['cat', 'dog', 'bat'];
+console.log(pets.includes('cat'));
+// expected output: true
+
+console.log(pets.includes('at'));
+// expected output: false
+```
+
+
+
+#### 라이프 사이클
+
+##### 클래스 방식
+
+- constructor -> render -> ref -> componentDidMount(비동기 요청)  -> (setState/props바뀔때 ) -> shouldComponentUpdate(true) -> render -> componentDitUpdate -> 부모가 나를 없앴을때 -> componentWillUnmount(비동기 요청 정리) -> 소멸
+
+##### 함수 변경 방법 
+
+```javascript
+onClickBtn = (choice) => {
+	... 
+}
+onClick={ () => this.onClickBtn('바위')}
+
+// 변경할려면 
+onClickBtn = (choice) => () => {
+	... 
+}
+onClick={this.onClickBtn('바위')}
+```
+
