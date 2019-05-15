@@ -206,9 +206,44 @@ useEffect(() => { // componentDidMount, componentDidUpdate 역할(1대1 대응�
   return () => { // componentWillUnmount 역할
     console.log('componentWillUnmount');
   }
-}, [imgCoord, score]);
+}, [imgCoord, score]); // 빈배열이면 componentDidMount역할 만 수행
 useEffect(() => {
   setResult();
 }, [result]);
 
+
+// componentDidUpdate만 호출되게끔하는 방법
+const mounted = useRef(false);
+useEffect(() => {
+	if (!mounted.current) {
+  	mounted.current = true;
+  } else {
+  	// ajax
+  }
+}, [바뀌는값]);
 ```
+
+- useMemo : 리턴되는 값을 기억한다.
+- useCallback : 리턴되는 함수를 기억한다. 
+  - 자식에게 함수를 전달할때 매번 새로운 함수를 보내면 자식은 계속 렌더링을 하게되서 문제가 발생한다.
+
+```javascript
+// useMemo
+const lottoNumbers = useMemo(() => {
+    return getWinNumbers();
+  }, []); // 두번째 인자가 바뀌지 않는 이상 변경이 되지 않는다.
+const [winNumbers, setWinNumbers] = useState(lottoNumbers);
+
+// useCallback
+const onClickRedo = useCallback(() => {
+  console.log(winNumbers);
+
+  setWinNumbers(getWinNumbers());
+  setWinBalls([]);
+  setBonus(null);
+  setRedo(false);
+
+  timeouts.current = [];
+}, [winNumbers]); // 두번째 인자가 변경되야 다시 호출된다.
+```
+
