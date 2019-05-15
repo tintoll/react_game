@@ -185,3 +185,30 @@ onClickBtn = (choice) => () => {
 onClick={this.onClickBtn('바위')}
 ```
 
+##### Hooks에서 라이프 사이클
+- useEffect()를 이용하여 사용 구현한다. 
+
+```javascript
+// class 방식 예제
+componentDidMount() {
+  this.setState({
+    imgCoord: 3,
+    score: 1,
+    result: 2,
+  })
+}
+
+// Hooks 구현 예제
+// 첫번째 인자로 함수, 두번째 인자로 첫번째 인자에서 사용할 state값을 넣어준다.
+useEffect(() => { // componentDidMount, componentDidUpdate 역할(1대1 대응은 아님)
+  setImgCoord();
+  setScore();
+  return () => { // componentWillUnmount 역할
+    console.log('componentWillUnmount');
+  }
+}, [imgCoord, score]);
+useEffect(() => {
+  setResult();
+}, [result]);
+
+```
