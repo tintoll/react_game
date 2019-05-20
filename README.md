@@ -247,3 +247,17 @@ const onClickRedo = useCallback(() => {
 }, [winNumbers]); // 두번째 인자가 변경되야 다시 호출된다.
 ```
 
+
+
+#### 배열 비구조화 할당
+
+- Hooks 문법을 사용하다 보면 ``const [value, setValue] = useState(0);`` 를 볼수 있다. 이부분은 배열 비구조화 할당을 문법을 사용한 부분이다 .아래 예를 보면 좀 더 쉬울것이다.
+
+```javascript
+const array = ['dog', 'cat', 'sheep'];
+const [first, second] = array;
+console.log(first, second); 
+```
+
+
+
